@@ -46,7 +46,8 @@ def getShuttleBus(depDet, arrDet, date, time, passengers):
     }
 
     response = requests.request("POST", url, headers=headers, data=payload).json()
-
+    print(response)
+    
     if response == "Error response, please try again":
         talk("Invalid response! API error...")
         return False

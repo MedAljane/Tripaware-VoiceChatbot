@@ -29,11 +29,7 @@ class Results:
         f.close()
 
         def bestChoice(obj, crit):
-            try:
-                bestCh = obj[list(obj.keys())[0]][0]
-            except IndexError():
-                print("Respone empty!")
-                return None
+            bestCh = obj[next(iter((obj.items())))[0]][0]
 
             for key in obj.keys():
                 for element in obj[key]:

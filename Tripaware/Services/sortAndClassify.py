@@ -5,17 +5,23 @@ def classifyByCarrier(js):
     carriersDict = {}
     multipleStops = False
 
-    if type(js[0]["Details"]) == list and len(js[0]["Details"]) != 1:
+    if isinstance(js[0]["Details"], list) and len(js[0]["Details"]) >= 1:
         multipleStops = True
 
-    if type(js[0]["Details"]) == list:
+    carriersList = []
+
+    if isinstance(js[0]["Details"], list):
+
         if multipleStops and js[0]["Details"][0]["type"] != "walk":
+
             carriersList = list(set([el["Details"][0]["companyName"] for el in js]))
 
         elif not multipleStops and js[0]["Details"][0]["type"] == "navette":
+
             carriersList = list(set([el["Details"][0]["companyName"] for el in js]))
 
         elif multipleStops:
+
             for el in js:
                 compNamesInDetails = {}
                 for detail in el["Details"]:
@@ -30,8 +36,10 @@ def classifyByCarrier(js):
                 carriersList.append(compNamesInDetails.get(max(compNamesInDetails.values())))
             carriersList = list(set(carriersList))
     
-    elif type(js[0]["Details"]) == dict:
+    elif isinstance(js[0]["Details"], dict):
+
         carriersList = list(set([el["Details"]["companyName"] for el in js]))
+        
     else:
         print("Error while sorting!")
         print(js)
