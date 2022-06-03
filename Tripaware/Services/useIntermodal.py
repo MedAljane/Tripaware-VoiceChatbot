@@ -46,13 +46,16 @@ def getIntermodal(depDet, arrDet, date, time, passengers):
     }
 
     response = requests.request("POST", url, headers=headers, data=payload).json()
+    
 
-    if response == {} or response == []:
+    if response in [{}, []]:
+        talk("List or Dict empty!")
         return False
     elif response == "Error response, please try again":
         talk("Invalid response! API error...")
         return False
-    elif response != {} or response != []:
+    elif response not in [{}, []]:
+        talk("Classifying and sorting of response...")
         response = classifyByCarrier(response)
         if response == False:
             return False

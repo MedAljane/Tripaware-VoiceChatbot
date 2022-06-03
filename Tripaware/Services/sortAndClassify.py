@@ -11,41 +11,32 @@ def classifyByCarrier(js):
     carriersList = []
 
     if isinstance(js[0]["Details"], list):
-
         if multipleStops and js[0]["Details"][0]["type"] != "walk":
-
             carriersList = list(set([el["Details"][0]["companyName"] for el in js]))
 
         elif not multipleStops and js[0]["Details"][0]["type"] == "navette":
-
             carriersList = list(set([el["Details"][0]["companyName"] for el in js]))
 
         elif multipleStops:
-
             for el in js:
                 compNamesInDetails = {}
                 for detail in el["Details"]:
                     if detail["type"] == "walk":
-                        pass
+                        continue
                     else:
                         if detail["companyName"] in compNamesInDetails.keys():
-                            compNamesInDetails["companyName"] += 1
+                            compNamesInDetails[detail["companyName"]] += 1
                         else:
-                            compNamesInDetails["companyName"] = 1
-                
-                carriersList.append(compNamesInDetails.get(max(compNamesInDetails.values())))
+                            compNamesInDetails[detail["companyName"]] = 1
+                carriersList.append(list(compNamesInDetails.keys())[list(compNamesInDetails.values()).index(max(compNamesInDetails.values()))])
             carriersList = list(set(carriersList))
     
     elif isinstance(js[0]["Details"], dict):
-
         carriersList = list(set([el["Details"]["companyName"] for el in js]))
         
     else:
         print("Error while sorting!")
-        print(js)
         return False
-        
-    print("Carriers list:", carriersList)
 
     if multipleStops:
         for carrier in carriersList:

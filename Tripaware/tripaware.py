@@ -15,7 +15,7 @@ def getTripAware(transport):
 
     if transport.lower() in vtc:
         from Services.useVtcTaxi import getVtcTaxi
-        print("Welcome to VTC and Taxi reservation!")
+        talk("Welcome to VTC and Taxi reservation!")
         depDetails, arrDetails, date, time, passengers = getsSeveralDetails()
         talk("Getting offers, please wait...")
         fileName = getVtcTaxi(depDetails, arrDetails, date, time, passengers)
@@ -28,7 +28,7 @@ def getTripAware(transport):
     
     elif transport.lower() in bus:
         from Services.useShuttleBus import getShuttleBus
-        print("Welcome to navette and bus reservation!")
+        talk("Welcome to navette and bus reservation!")
         depDetails, arrDetails, date, time, passengers = getsSeveralDetails()
         talk("Getting offers, please wait...")
         fileName = getShuttleBus(depDetails, arrDetails, date, time, passengers)
@@ -41,7 +41,7 @@ def getTripAware(transport):
         
     elif transport.lower() in covoiturage:
         from Services.useCarpooling import getCarpooling
-        print("Welcome to co-voiturage reservation!")
+        talk("Welcome to co-voiturage reservation!")
         depDetails, arrDetails, date, time, passengers = getsSeveralDetails()
         talk("Getting offers, please wait...")
         fileName = getCarpooling(depDetails, arrDetails, date, time, passengers)
@@ -54,7 +54,7 @@ def getTripAware(transport):
 
     elif transport.lower() in intermodal:
         from Services.useIntermodal import getIntermodal
-        print("Welcome to intermodal reservation!")
+        talk("Welcome to intermodal reservation!")
         depDetails, arrDetails, date, time, passengers = getsSeveralDetails()
         talk("Getting offers, please wait...")
         fileName = getIntermodal(depDetails, arrDetails, date, time, passengers)
@@ -68,8 +68,3 @@ def getTripAware(transport):
     else:
         talk("Sorry but we can't find the desired transport method provided!")
 
-
-talk("insert transport method please!")
-transportMethod = take_command()
-
-getTripAware(transportMethod)

@@ -48,7 +48,7 @@ class Results:
 
     def showResults(self, resfile, criteria="TotalPrice"):
         if self.resultFile:
-            if self.resultFile["MultipleStops"] and self.fileName == "intermodalOffers.json":
+            if self.resultFile["MultipleStops"] and self.fileName in ["intermodalOffers.json", "shuttleBusOffers.json"]:
                 talk("Showing results...")
                 talk(f"The best choice by {criteria} is:")
                 talk(f"Company: {self.bestChoices[criteria]['Details'][0]['companyName']}.")
@@ -56,6 +56,7 @@ class Results:
                 talk(f"Departure: {self.bestChoices[criteria]['Departure']['Time']} from {self.bestChoices[criteria]['Departure']['stopPoint']['name']}.")
                 talk(f"Arrival: {self.bestChoices[criteria]['Arriving']['Time']} at {self.bestChoices[criteria]['Arriving']['stopPoint']['name']}.")
                 talk(f"With a total price of: {self.bestChoices[criteria]['TotalPrice']} EUR.")
+            
             elif self.resultFile["MultipleStops"]:
                 talk("Showing results...")
                 talk(f"The best choice by {criteria} is:")
@@ -65,6 +66,7 @@ class Results:
                 talk(f"Departure: {self.bestChoices[criteria]['Departure']['Time']} from {self.bestChoices[criteria]['Departure']['stopPoint']['name']}.")
                 talk(f"Arrival: {self.bestChoices[criteria]['Arriving']['Time']} at {self.bestChoices[criteria]['Arriving']['stopPoint']['name']}.")
                 talk(f"With a total price of: {self.bestChoices[criteria]['TotalPrice']} EUR.")
+            
             else:
                 talk("Showing results...")
                 talk(f"The best choice by {criteria} is:")
