@@ -125,4 +125,3 @@ def getTripAware(transport, speaker, criteria=""):
             speaker.talk("Sorry but we can't find the desired transport method provided!")
         elif speaker.lang == 'fr':
             speaker.talk("Désolé mais nous ne trouvons pas le moyen de transport souhaité fourni!")
-
