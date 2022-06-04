@@ -1,9 +1,9 @@
-from Services.sortAndClassify import classifyByCarrier
-from voiceSetup import talk
+from Tripaware.Services.sortAndClassify import classifyByCarrier
+from voiceSetup import Speaker
 import requests
 import json
 
-def getIntermodal(depDet, arrDet, date, time, passengers):
+def getIntermodal(depDet, arrDet, date, time, passengers, speaker):
     url = "https://api.ozeroute.com/v1/transportation/intermodal"
 
     payload = json.dumps({
@@ -49,13 +49,13 @@ def getIntermodal(depDet, arrDet, date, time, passengers):
     
 
     if response in [{}, []]:
-        talk("List or Dict empty!")
+        speaker.talk("List or Dict empty!")
         return False
     elif response == "Error response, please try again":
-        talk("Invalid response! API error...")
+        speaker.talk("Invalid response! API error...")
         return False
     elif response not in [{}, []]:
-        talk("Classifying and sorting of response...")
+        speaker.talk("Classifying and sorting of response...")
         response = classifyByCarrier(response)
         if response == False:
             return False

@@ -1,5 +1,4 @@
-from voiceSetup import take_command
-from voiceSetup import talk
+from voiceSetup import Speaker
 from random import choice
 import json
 
@@ -46,36 +45,36 @@ class Results:
         }
 
 
-    def showResults(self, resfile, criteria="TotalPrice"):
+    def showResults(self, resfile, speaker, criteria="TotalPrice"):
         if self.resultFile:
             if self.resultFile["MultipleStops"] and self.fileName in ["intermodalOffers.json", "shuttleBusOffers.json"]:
-                talk("Showing results...")
-                talk(f"The best choice by {criteria} is:")
-                talk(f"Company: {self.bestChoices[criteria]['Details'][0]['companyName']}.")
-                talk(f"Total duration: {round(self.bestChoices[criteria]['TotalDuration'])} minutes.")
-                talk(f"Departure: {self.bestChoices[criteria]['Departure']['Time']} from {self.bestChoices[criteria]['Departure']['stopPoint']['name']}.")
-                talk(f"Arrival: {self.bestChoices[criteria]['Arriving']['Time']} at {self.bestChoices[criteria]['Arriving']['stopPoint']['name']}.")
-                talk(f"With a total price of: {self.bestChoices[criteria]['TotalPrice']} EUR.")
+                speaker.talk("Showing results...")
+                speaker.talk(f"The best choice by {criteria} is:")
+                speaker.talk(f"Company: {self.bestChoices[criteria]['Details'][0]['companyName']}.")
+                speaker.talk(f"Total duration: {round(self.bestChoices[criteria]['TotalDuration'])} minutes.")
+                speaker.talk(f"Departure: {self.bestChoices[criteria]['Departure']['Time']} from {self.bestChoices[criteria]['Departure']['stopPoint']['name']}.")
+                speaker.talk(f"Arrival: {self.bestChoices[criteria]['Arriving']['Time']} at {self.bestChoices[criteria]['Arriving']['stopPoint']['name']}.")
+                speaker.talk(f"With a total price of: {self.bestChoices[criteria]['TotalPrice']} EUR.")
             
             elif self.resultFile["MultipleStops"]:
-                talk("Showing results...")
-                talk(f"The best choice by {criteria} is:")
-                talk(f"Company: {self.bestChoices[criteria]['Details'][0]['companyName']}.")
-                talk(f"Vehicule details: {self.bestChoices[criteria]['Details'][0]['Vehicule']['comfort']}, with {self.bestChoices[criteria]['Details'][0]['Vehicule']['Seats']} seats.")
-                talk(f"Total duration: {round(self.bestChoices[criteria]['TotalDuration'])} minutes.")
-                talk(f"Departure: {self.bestChoices[criteria]['Departure']['Time']} from {self.bestChoices[criteria]['Departure']['stopPoint']['name']}.")
-                talk(f"Arrival: {self.bestChoices[criteria]['Arriving']['Time']} at {self.bestChoices[criteria]['Arriving']['stopPoint']['name']}.")
-                talk(f"With a total price of: {self.bestChoices[criteria]['TotalPrice']} EUR.")
+                speaker.talk("Showing results...")
+                speaker.talk(f"The best choice by {criteria} is:")
+                speaker.talk(f"Company: {self.bestChoices[criteria]['Details'][0]['companyName']}.")
+                speaker.talk(f"Vehicule details: {self.bestChoices[criteria]['Details'][0]['Vehicule']['comfort']}, with {self.bestChoices[criteria]['Details'][0]['Vehicule']['Seats']} seats.")
+                speaker.talk(f"Total duration: {round(self.bestChoices[criteria]['TotalDuration'])} minutes.")
+                speaker.talk(f"Departure: {self.bestChoices[criteria]['Departure']['Time']} from {self.bestChoices[criteria]['Departure']['stopPoint']['name']}.")
+                speaker.talk(f"Arrival: {self.bestChoices[criteria]['Arriving']['Time']} at {self.bestChoices[criteria]['Arriving']['stopPoint']['name']}.")
+                speaker.talk(f"With a total price of: {self.bestChoices[criteria]['TotalPrice']} EUR.")
             
             else:
-                talk("Showing results...")
-                talk(f"The best choice by {criteria} is:")
-                talk(f"Company: {self.bestChoices[criteria]['Details']['companyName']}.")
-                talk(f"Vehicule details: {self.bestChoices[criteria]['Details']['Vehicule']['comfort']}, with {self.bestChoices[criteria]['Details']['Vehicule']['Seats']} seats.")
-                talk(f"Total duration: {round(self.bestChoices[criteria]['TotalDuration'])} minutes.")
-                talk(f"Departure: {self.bestChoices[criteria]['Departure']['Time']} from {self.bestChoices[criteria]['Departure']['stopPoint']['name']}.")
-                talk(f"Arrival: {self.bestChoices[criteria]['Arriving']['Time']} at {self.bestChoices[criteria]['Arriving']['stopPoint']['name']}.")
-                talk(f"With a total price of: {self.bestChoices[criteria]['TotalPrice']} EUR.")
+                speaker.talk("Showing results...")
+                speaker.talk(f"The best choice by {criteria} is:")
+                speaker.talk(f"Company: {self.bestChoices[criteria]['Details']['companyName']}.")
+                speaker.talk(f"Vehicule details: {self.bestChoices[criteria]['Details']['Vehicule']['comfort']}, with {self.bestChoices[criteria]['Details']['Vehicule']['Seats']} seats.")
+                speaker.talk(f"Total duration: {round(self.bestChoices[criteria]['TotalDuration'])} minutes.")
+                speaker.talk(f"Departure: {self.bestChoices[criteria]['Departure']['Time']} from {self.bestChoices[criteria]['Departure']['stopPoint']['name']}.")
+                speaker.talk(f"Arrival: {self.bestChoices[criteria]['Arriving']['Time']} at {self.bestChoices[criteria]['Arriving']['stopPoint']['name']}.")
+                speaker.talk(f"With a total price of: {self.bestChoices[criteria]['TotalPrice']} EUR.")
 
         else:
-            talk("Sorry but we can't find any result for the given method!")
+            speaker.talk("Sorry but we can't find any result for the given method!")

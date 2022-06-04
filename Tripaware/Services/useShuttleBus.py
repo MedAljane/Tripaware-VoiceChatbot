@@ -1,9 +1,9 @@
-from Services.sortAndClassify import classifyByCarrier
-from voiceSetup import talk
+from Tripaware.Services.sortAndClassify import classifyByCarrier
+from voiceSetup import Speaker
 import requests
 import json
 
-def getShuttleBus(depDet, arrDet, date, time, passengers):
+def getShuttleBus(depDet, arrDet, date, time, passengers, speaker):
     url = "https://api.ozeroute.com/v1/transportation/shuttle_bus"
 
     payload = json.dumps({
@@ -48,7 +48,7 @@ def getShuttleBus(depDet, arrDet, date, time, passengers):
     response = requests.request("POST", url, headers=headers, data=payload).json()
     
     if response == "Error response, please try again":
-        talk("Invalid response! API error...")
+        speaker.talk("Invalid response! API error...")
         return False
     elif response == {} or response == []:
         return False
