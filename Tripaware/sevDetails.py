@@ -29,9 +29,6 @@ def getDate(speaker):
 
 
 def getsSeveralDetails(speaker):
-
-    depPlace = ""
-    validPlace = False
     
     # Departure place input to get details
     if speaker.lang == 'en':
@@ -39,9 +36,12 @@ def getsSeveralDetails(speaker):
     elif speaker.lang == 'fr':
         speaker.talk("insérez le lieu de départ s'il vous plait!")
 
+    depPlace = ""
+    
+    validPlace = False
+
     while not validPlace:
         depPlace = speaker.take_command()
-
         validPlace = getDetails(depPlace)
 
         if validPlace:
@@ -73,14 +73,14 @@ def getsSeveralDetails(speaker):
     f.close()
     os.remove("placeDetails.json")
 
-    destPlace = ""
-    validPlace = False
-
     # Destination place input to get details
     if speaker.lang == 'en':
         speaker.talk("insert destination place please!")
     elif speaker.lang == 'fr':
         speaker.talk("insérer le lieu de destination s'il vous plait!")
+
+    destPlace = ""
+    validPlace = False
         
     while not validPlace:
         destPlace = speaker.take_command()

@@ -28,12 +28,4 @@ while not validLanguage:
         language = sp.take_command()
 
 
-if language == 'en':
-    sp.talk("Insert the mean of transport please!")
-elif language == 'fr':
-    sp.talk("Insérez le moyen de transport s'il vous plaît!")
-
-
-transportMethod = sp.take_command()
-
-getTripAware(transportMethod, sp)
+getTripAware(sp)
