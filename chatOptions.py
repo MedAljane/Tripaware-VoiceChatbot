@@ -1,0 +1,5 @@
+loc = ["Localisation d'un lieux", "localisation d'un lieux", "localisation d'un lieu","lieux","Lieux","localisation des lieux","localisation","lieu","City location","Location","location","city","City"]
+tim = ['what time is it', 'what is the time', 'time',"tell me the time","heure","Quelle heure est-il","quelle heure est-il"]
+book = ["booking Hotel", 'Hotel', 'hotel',"i want to book a hotel","I want to book a hotel","Booking Hotel","booking hotel","réservation","je veux réserver dans un hôtel","hôtel","je veux un hôtel","une réservation d'hôtel","je veux faire une réservation d'hôtel"," je veux réserver","i want a hotel","I want a hotel","je veux un hotel","Je veux un hotel"]
+cor= ["corona", "Corona","coronavirus","Coronavirus","tell me about corona"]
+mus=["music listening", 'I want to listen a music' ,'i want to listen a music','i want to listen music',"je veux écouter une musique","Je veux écouter une musique","écouter une musique","listen to music","Listen to music","listen a music","Listen a music" ,"music","Music","musique","Musique" ]

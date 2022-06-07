@@ -1,3 +1,4 @@
+from queue import Queue
 import speech_recognition as sr                 # For voice recognition
 import pyttsx3                                  # For text to speech conversion
 
@@ -26,30 +27,32 @@ class Speaker:
             self.lang = language
 
 
-    def talk(self, text):
-        print(text)
+    def talk(self, qu, text):
+        qu.put(("Bot: ", text))
+        if text in ["exit", "quitter", "quit", "cancel"]:
+            exit()
         self.engine.say(text)
         self.engine.runAndWait() 
 
 
-    def take_command(self):
+    def take_command(self, q):
         if self.lang == 'fr':
             recognized = False
             while not recognized:
                 with sr.Microphone() as source:
                     self.listener.adjust_for_ambient_noise(source, duration=1)
-                    self.talk("J'ecoute...")
+                    self.talk(q, "J'ecoute...")
                     self.listener.pause_threshold = 1
                     audio = self.listener.listen(source)
             
                 try:
-                    self.talk("En train de reconnaître...") 
+                    self.talk(q, "En train de reconnaître...") 
                     command = self.listener.recognize_google(audio, language ='fr')
-                    print(f"Vous --->: {command}\n")
+                    q.put(("Vous :" ,command))
                     recognized = True
             
                 except Exception as e:
-                    self.talk("Impossible de reconnaître votre voix, veuillez réessayer...")
+                    self.talk(q, "Impossible de reconnaître votre voix, veuillez réessayer...")
             
             return command
 
@@ -58,17 +61,17 @@ class Speaker:
             while not recognized:
                 with sr.Microphone() as source:
                     self.listener.adjust_for_ambient_noise(source, duration=1)
-                    self.talk("Listening...")
+                    self.talk(q, "Listening...")
                     self.listener.pause_threshold = 1
                     audio = self.listener.listen(source)
             
                 try:
-                    self.talk("Recognizing...") 
+                    self.talk(q, "Recognizing...") 
                     command = self.listener.recognize_google(audio, language ='en')
-                    print(f"you --->: {command}\n")
+                    q.put(("you: ", command))
                     recognized = True
             
                 except Exception as e:
-                    self.talk("Unable to Recognize your voice, try Again please...")
+                    self.talk(q, "Unable to Recognize your voice, try Again please...")
             
             return command
