@@ -3,7 +3,7 @@ from voiceSetup import Speaker
 import requests
 import json
 
-def getShuttleBus(depDet, arrDet, date, time, passengers, speaker):
+def getShuttleBus(depDet, arrDet, date, time, passengers, speaker, qu):
     url = "https://api.ozeroute.com/v1/transportation/shuttle_bus"
 
     payload = json.dumps({
@@ -48,7 +48,7 @@ def getShuttleBus(depDet, arrDet, date, time, passengers, speaker):
     response = requests.request("POST", url, headers=headers, data=payload).json()
     
     if response == "Error response, please try again":
-        speaker.talk("Invalid response! API error...")
+        speaker.talk(qu, "Invalid response! API error...")
         return False
     elif response == {} or response == []:
         return False

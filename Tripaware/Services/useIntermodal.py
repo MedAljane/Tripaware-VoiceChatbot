@@ -3,7 +3,7 @@ from voiceSetup import Speaker
 import requests
 import json
 
-def getIntermodal(depDet, arrDet, date, time, passengers, speaker):
+def getIntermodal(depDet, arrDet, date, time, passengers, speaker, qu):
     url = "https://api.ozeroute.com/v1/transportation/intermodal"
 
     payload = json.dumps({
@@ -49,13 +49,13 @@ def getIntermodal(depDet, arrDet, date, time, passengers, speaker):
     
 
     if response in [{}, []]:
-        speaker.talk("List or Dict empty!")
+        speaker.talk(qu, "List or Dict empty!")
         return False
     elif response == "Error response, please try again":
-        speaker.talk("Invalid response! API error...")
+        speaker.talk(qu, "Invalid response! API error...")
         return False
     elif response not in [{}, []]:
-        speaker.talk("Classifying and sorting of response...")
+        speaker.talk(qu, "Classifying and sorting of response...")
         response = classifyByCarrier(response)
         if response == False:
             return False

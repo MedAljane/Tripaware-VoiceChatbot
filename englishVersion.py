@@ -1,25 +1,27 @@
-from queue import Queue
-from voiceSetup import Speaker
-import os
-import pyttsx3
-import speech_recognition as sr
-import pywhatkit
-import pandas as pd
-import datetime
-import wikipedia
-import pyjokes
-import webbrowser
-import ipinfo
-from bs4 import BeautifulSoup
-import requests
-import re
-import json 
-from corona import getCorona
 from sentence_splitter import SentenceSplitter, split_text_into_sentences
+from chatOptions import loc, tim, book, cor, mus, tripaware
+from Tripaware.tripaware import getTripAware
 from deep_translator import GoogleTranslator
-from threading import Thread
 from temperature import tempEN, tempFR
-from chatOptions import loc, tim, book, cor, mus
+import speech_recognition as sr
+from voiceSetup import Speaker
+from bs4 import BeautifulSoup
+from corona import getCorona
+from threading import Thread
+from queue import Queue
+import pandas as pd
+import webbrowser
+import wikipedia
+import pywhatkit
+import requests
+import datetime
+import pyttsx3
+import pyjokes
+import ipinfo
+import json 
+import os
+import re
+
 
 def english(speaker, qu):
     #anglais
@@ -104,9 +106,11 @@ def english(speaker, qu):
             url = 'https://google.nl/maps/place/' + l + '/&amp;'
             webbrowser.open(url)
         
-        
         elif  'weather' in command.lower():
             tempEN(speaker, qu)
+
+        elif command in tripaware:
+            getTripAware(speaker, qu)
 
         elif command.lower() in ["exit", "quitter", "quit", "cancel"]:
             speaker.talk(qu, "Thank you for using our service, see you soon!")

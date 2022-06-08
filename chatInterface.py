@@ -34,11 +34,8 @@ class ChatInterface(Frame):
         color_theme.add_command(label="Default",command=self.color_theme_default) 
         color_theme.add_command(label="Grey",command=self.color_theme_grey) 
         color_theme.add_command(label="Blue",command=self.color_theme_dark_blue) 
-
         color_theme.add_command(label="Torque",command=self.color_theme_turquoise)
         color_theme.add_command(label="Hacker",command=self.color_theme_hacker)
-
-
 
         help_option = Menu(menu, tearoff=0)
         menu.add_cascade(label="Help", menu=help_option)
@@ -69,8 +66,7 @@ class ChatInterface(Frame):
     def about(self):
         tkinter.messagebox.showinfo("CHATTY Developers","Hassen Chebil\nMohamed Amine Aljan")
     
-    
-
+    # Default
     def color_theme_default(self):
         self.master.config(bg="#EEEEEE")
         self.text_frame.config(bg="#EEEEEE")
@@ -100,16 +96,6 @@ class ChatInterface(Frame):
         self.tl_bg2 = "#444444"
         self.tl_fg = "#ffffff"
 
-
-    def color_theme_turquoise(self):
-        self.master.config(bg="#003333")
-        self.text_frame.config(bg="#003333")
-        self.text_box.config(bg="#669999", fg="#FFFFFF")
-        
-        self.tl_bg = "#669999"
-        self.tl_bg2 = "#003333"
-        self.tl_fg = "#FFFFFF"    
-
     # Blue
     def color_theme_dark_blue(self):
         self.master.config(bg="#263b54")
@@ -119,9 +105,6 @@ class ChatInterface(Frame):
         self.tl_bg = "#1c2e44"
         self.tl_bg2 = "#263b54"
         self.tl_fg = "#FFFFFF"
-
- 
-    
 
     # Torque
     def color_theme_turquoise(self):
@@ -142,8 +125,6 @@ class ChatInterface(Frame):
         self.tl_bg = "#0F0F0F"
         self.tl_bg2 = "#0F0F0F"
         self.tl_fg = "#33FF33"
-
-    
 
     # Default font and color theme
     def default_format(self):

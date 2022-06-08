@@ -1,26 +1,26 @@
-from queue import Queue
-from voiceSetup import Speaker
-import os
-import pyttsx3
-import speech_recognition as sr
-import pywhatkit
-import pandas as pd
-import datetime
-import wikipedia
-import pyjokes
-import webbrowser
-import ipinfo
-from bs4 import BeautifulSoup
-import requests
-import re
-import json 
-
-from corona import getCorona
 from sentence_splitter import SentenceSplitter, split_text_into_sentences
+from chatOptions import loc, tim, book, cor, mus, tripaware
+from Tripaware.tripaware import getTripAware
 from deep_translator import GoogleTranslator
-from threading import Thread
 from temperature import tempEN, tempFR
-from chatOptions import loc, tim, book, cor, mus
+import speech_recognition as sr
+from voiceSetup import Speaker
+from bs4 import BeautifulSoup
+from corona import getCorona
+from threading import Thread
+from queue import Queue
+import pandas as pd
+import webbrowser
+import wikipedia
+import pywhatkit
+import requests
+import datetime
+import pyttsx3
+import pyjokes
+import ipinfo
+import json 
+import os
+import re
 
 
 def french(speaker, qu):
@@ -28,7 +28,6 @@ def french(speaker, qu):
 
     def Ville(qu):
         #​​Description de la ville
-        #ville=input('Ville:  ')
         speaker.talk(qu, "choisissez la ville s'il vous plait")
         ville = speaker.take_command(qu)
         l='https://fr.wikivoyage.org/wiki/'+ville
@@ -103,7 +102,6 @@ def french(speaker, qu):
             for date, case, death in zip(dates, cases, deaths):
                 speaker.talk(qu, date+": \n"+case+", "+death)
 
-
         elif "qu'est-ce que" in command:
             thing = command.replace("qu'est-ce que", '')
             wikipedia.set_lang("fr")
@@ -115,6 +113,9 @@ def french(speaker, qu):
             l = speaker.take_command(qu)
             url = 'https://google.nl/maps/place/' + l + '/&amp;'
             webbrowser.open(url)
+
+        elif command in tripaware:
+            getTripAware(speaker, qu)
 
         elif command.lower() in ["exit", "quitter", "quit", "cancel"]:
             speaker.talk(qu, "Merci d'utiliser notre service, à bientôt!")

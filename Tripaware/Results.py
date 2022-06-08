@@ -45,71 +45,71 @@ class Results:
         }
 
 
-    def showResults(self, resfile, speaker, criteria="TotalPrice"):
+    def showResults(self, resfile, speaker, qu, criteria="TotalPrice"):
         if self.resultFile:
 
             if speaker.lang == 'en':
                 if self.resultFile["MultipleStops"] and self.fileName in ["intermodalOffers.json", "shuttleBusOffers.json"]:
-                    speaker.talk("Showing results...")
-                    speaker.talk(f"The best choice by {criteria} is:")
-                    speaker.talk(f"Company: {self.bestChoices[criteria]['Details'][0]['companyName']}.")
-                    speaker.talk(f"Total duration: {round(self.bestChoices[criteria]['TotalDuration'])} minutes.")
-                    speaker.talk(f"Departure: {self.bestChoices[criteria]['Departure']['Time']} from {self.bestChoices[criteria]['Departure']['stopPoint']['name']}.")
-                    speaker.talk(f"Arrival: {self.bestChoices[criteria]['Arriving']['Time']} at {self.bestChoices[criteria]['Arriving']['stopPoint']['name']}.")
-                    speaker.talk(f"With a total price of: {self.bestChoices[criteria]['TotalPrice']} EUR.")
+                    speaker.talk(qu, "Showing results...")
+                    speaker.talk(qu, f"The best choice by {criteria} is:")
+                    speaker.talk(qu, f"Company: {self.bestChoices[criteria]['Details'][0]['companyName']}.")
+                    speaker.talk(qu, f"Total duration: {round(self.bestChoices[criteria]['TotalDuration'])} minutes.")
+                    speaker.talk(qu, f"Departure: {self.bestChoices[criteria]['Departure']['Time']} from {self.bestChoices[criteria]['Departure']['stopPoint']['name']}.")
+                    speaker.talk(qu, f"Arrival: {self.bestChoices[criteria]['Arriving']['Time']} at {self.bestChoices[criteria]['Arriving']['stopPoint']['name']}.")
+                    speaker.talk(qu, f"With a total price of: {self.bestChoices[criteria]['TotalPrice']} EUR.")
                 
                 elif self.resultFile["MultipleStops"]:
-                    speaker.talk("Showing results...")
-                    speaker.talk(f"The best choice by {criteria} is:")
-                    speaker.talk(f"Company: {self.bestChoices[criteria]['Details'][0]['companyName']}.")
-                    speaker.talk(f"Vehicule details: {self.bestChoices[criteria]['Details'][0]['Vehicule']['comfort']}, with {self.bestChoices[criteria]['Details'][0]['Vehicule']['Seats']} seats.")
-                    speaker.talk(f"Total duration: {round(self.bestChoices[criteria]['TotalDuration'])} minutes.")
-                    speaker.talk(f"Departure: {self.bestChoices[criteria]['Departure']['Time']} from {self.bestChoices[criteria]['Departure']['stopPoint']['name']}.")
-                    speaker.talk(f"Arrival: {self.bestChoices[criteria]['Arriving']['Time']} at {self.bestChoices[criteria]['Arriving']['stopPoint']['name']}.")
-                    speaker.talk(f"With a total price of: {self.bestChoices[criteria]['TotalPrice']} EUR.")
+                    speaker.talk(qu, "Showing results...")
+                    speaker.talk(qu, f"The best choice by {criteria} is:")
+                    speaker.talk(qu, f"Company: {self.bestChoices[criteria]['Details'][0]['companyName']}.")
+                    speaker.talk(qu, f"Vehicule details: {self.bestChoices[criteria]['Details'][0]['Vehicule']['comfort']}, with {self.bestChoices[criteria]['Details'][0]['Vehicule']['Seats']} seats.")
+                    speaker.talk(qu, f"Total duration: {round(self.bestChoices[criteria]['TotalDuration'])} minutes.")
+                    speaker.talk(qu, f"Departure: {self.bestChoices[criteria]['Departure']['Time']} from {self.bestChoices[criteria]['Departure']['stopPoint']['name']}.")
+                    speaker.talk(qu, f"Arrival: {self.bestChoices[criteria]['Arriving']['Time']} at {self.bestChoices[criteria]['Arriving']['stopPoint']['name']}.")
+                    speaker.talk(qu, f"With a total price of: {self.bestChoices[criteria]['TotalPrice']} EUR.")
                 
                 else:
-                    speaker.talk("Showing results...")
-                    speaker.talk(f"The best choice by {criteria} is:")
-                    speaker.talk(f"Company: {self.bestChoices[criteria]['Details']['companyName']}.")
-                    speaker.talk(f"Vehicule details: {self.bestChoices[criteria]['Details']['Vehicule']['comfort']}, with {self.bestChoices[criteria]['Details']['Vehicule']['Seats']} seats.")
-                    speaker.talk(f"Total duration: {round(self.bestChoices[criteria]['TotalDuration'])} minutes.")
-                    speaker.talk(f"Departure: {self.bestChoices[criteria]['Departure']['Time']} from {self.bestChoices[criteria]['Departure']['stopPoint']['name']}.")
-                    speaker.talk(f"Arrival: {self.bestChoices[criteria]['Arriving']['Time']} at {self.bestChoices[criteria]['Arriving']['stopPoint']['name']}.")
-                    speaker.talk(f"With a total price of: {self.bestChoices[criteria]['TotalPrice']} EUR.")
+                    speaker.talk(qu, "Showing results...")
+                    speaker.talk(qu, f"The best choice by {criteria} is:")
+                    speaker.talk(qu, f"Company: {self.bestChoices[criteria]['Details']['companyName']}.")
+                    speaker.talk(qu, f"Vehicule details: {self.bestChoices[criteria]['Details']['Vehicule']['comfort']}, with {self.bestChoices[criteria]['Details']['Vehicule']['Seats']} seats.")
+                    speaker.talk(qu, f"Total duration: {round(self.bestChoices[criteria]['TotalDuration'])} minutes.")
+                    speaker.talk(qu, f"Departure: {self.bestChoices[criteria]['Departure']['Time']} from {self.bestChoices[criteria]['Departure']['stopPoint']['name']}.")
+                    speaker.talk(qu, f"Arrival: {self.bestChoices[criteria]['Arriving']['Time']} at {self.bestChoices[criteria]['Arriving']['stopPoint']['name']}.")
+                    speaker.talk(qu, f"With a total price of: {self.bestChoices[criteria]['TotalPrice']} EUR.")
                     
             if speaker.lang == 'fr':
                 if self.resultFile["MultipleStops"] and self.fileName in ["intermodalOffers.json", "shuttleBusOffers.json"]:
-                    speaker.talk("Affichage des résultats...")
-                    speaker.talk(f"Le meilleur choix selon {criteria} est:")
-                    speaker.talk(f"Société: {self.bestChoices[criteria]['Details'][0]['companyName']}.")
-                    speaker.talk(f"Durée totale: {round(self.bestChoices[criteria]['TotalDuration'])} minutes.")
-                    speaker.talk(f"Départ: {self.bestChoices[criteria]['Departure']['Time']} de {self.bestChoices[criteria]['Departure']['stopPoint']['name']}.")
-                    speaker.talk(f"Arrivée: {self.bestChoices[criteria]['Arriving']['Time']} à {self.bestChoices[criteria]['Arriving']['stopPoint']['name']}.")
-                    speaker.talk(f"Avec un prix total de: {self.bestChoices[criteria]['TotalPrice']} EUR.")
+                    speaker.talk(qu, "Affichage des résultats...")
+                    speaker.talk(qu, f"Le meilleur choix selon {criteria} est:")
+                    speaker.talk(qu, f"Société: {self.bestChoices[criteria]['Details'][0]['companyName']}.")
+                    speaker.talk(qu, f"Durée totale: {round(self.bestChoices[criteria]['TotalDuration'])} minutes.")
+                    speaker.talk(qu, f"Départ: {self.bestChoices[criteria]['Departure']['Time']} de {self.bestChoices[criteria]['Departure']['stopPoint']['name']}.")
+                    speaker.talk(qu, f"Arrivée: {self.bestChoices[criteria]['Arriving']['Time']} à {self.bestChoices[criteria]['Arriving']['stopPoint']['name']}.")
+                    speaker.talk(qu, f"Avec un prix total de: {self.bestChoices[criteria]['TotalPrice']} EUR.")
                 
                 elif self.resultFile["MultipleStops"]:
-                    speaker.talk("Affichage des résultats...")
-                    speaker.talk(f"Le meilleur choix selon {criteria} est:")
-                    speaker.talk(f"Société: {self.bestChoices[criteria]['Details'][0]['companyName']}.")
-                    speaker.talk(f"Détails du véhicule: {self.bestChoices[criteria]['Details'][0]['Vehicule']['comfort']}, avec {self.bestChoices[criteria]['Details'][ 0]['Véhicule']['Seats']} places.")
-                    speaker.talk(f"Durée totale: {round(self.bestChoices[criteria]['TotalDuration'])} minutes.")
-                    speaker.talk(f"Départ: {self.bestChoices[criteria]['Departure']['Time']} de {self.bestChoices[criteria]['Departure']['stopPoint']['name']}.")
-                    speaker.talk(f"Arrivée: {self.bestChoices[criteria]['Arriving']['Time']} à {self.bestChoices[criteria]['Arriving']['stopPoint']['name']}.")
-                    speaker.talk(f"Avec un prix total de: {self.bestChoices[criteria]['TotalPrice']} EUR.")
+                    speaker.talk(qu, "Affichage des résultats...")
+                    speaker.talk(qu, f"Le meilleur choix selon {criteria} est:")
+                    speaker.talk(qu, f"Société: {self.bestChoices[criteria]['Details'][0]['companyName']}.")
+                    speaker.talk(qu, f"Détails du véhicule: {self.bestChoices[criteria]['Details'][0]['Vehicule']['comfort']}, avec {self.bestChoices[criteria]['Details'][ 0]['Véhicule']['Seats']} places.")
+                    speaker.talk(qu, f"Durée totale: {round(self.bestChoices[criteria]['TotalDuration'])} minutes.")
+                    speaker.talk(qu, f"Départ: {self.bestChoices[criteria]['Departure']['Time']} de {self.bestChoices[criteria]['Departure']['stopPoint']['name']}.")
+                    speaker.talk(qu, f"Arrivée: {self.bestChoices[criteria]['Arriving']['Time']} à {self.bestChoices[criteria]['Arriving']['stopPoint']['name']}.")
+                    speaker.talk(qu, f"Avec un prix total de: {self.bestChoices[criteria]['TotalPrice']} EUR.")
                 
                 else:
-                    speaker.talk("Affichage des résultats...")
-                    speaker.talk(f"Le meilleur choix selon {criteria} est:")
-                    speaker.talk(f"Entreprise: {self.bestChoices[criteria]['Details']['companyName']}.")
-                    speaker.talk(f"Détails du véhicule: {self.bestChoices[criteria]['Details']['Vehicule']['comfort']}, avec {self.bestChoices[criteria]['Details']['Vehicule' ]['Seats']} places.")
-                    speaker.talk(f"Durée totale: {round(self.bestChoices[criteria]['TotalDuration'])} minutes.")
-                    speaker.talk(f"Départ: {self.bestChoices[criteria]['Departure']['Time']} de {self.bestChoices[criteria]['Departure']['stopPoint']['name']}.")
-                    speaker.talk(f"Arrivée: {self.bestChoices[criteria]['Arriving']['Time']} à {self.bestChoices[criteria]['Arriving']['stopPoint']['name']}.")
-                    speaker.talk(f"Avec un prix total de: {self.bestChoices[criteria]['TotalPrice']} EUR.")
+                    speaker.talk(qu, "Affichage des résultats...")
+                    speaker.talk(qu, f"Le meilleur choix selon {criteria} est:")
+                    speaker.talk(qu, f"Entreprise: {self.bestChoices[criteria]['Details']['companyName']}.")
+                    speaker.talk(qu, f"Détails du véhicule: {self.bestChoices[criteria]['Details']['Vehicule']['comfort']}, avec {self.bestChoices[criteria]['Details']['Vehicule' ]['Seats']} places.")
+                    speaker.talk(qu, f"Durée totale: {round(self.bestChoices[criteria]['TotalDuration'])} minutes.")
+                    speaker.talk(qu, f"Départ: {self.bestChoices[criteria]['Departure']['Time']} de {self.bestChoices[criteria]['Departure']['stopPoint']['name']}.")
+                    speaker.talk(qu, f"Arrivée: {self.bestChoices[criteria]['Arriving']['Time']} à {self.bestChoices[criteria]['Arriving']['stopPoint']['name']}.")
+                    speaker.talk(qu, f"Avec un prix total de: {self.bestChoices[criteria]['TotalPrice']} EUR.")
 
         else:
             if speaker.lang == 'en':
-                speaker.talk("Sorry but we can't find any result for the given method!")
+                speaker.talk(qu, "Sorry but we can't find any result for the given method!")
             elif speaker.lang == 'fr':
-                speaker.talk("Désolé mais nous ne trouvons aucun résultat pour la méthode donnée!")
+                speaker.talk(qu, "Désolé mais nous ne trouvons aucun résultat pour la méthode donnée!")

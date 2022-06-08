@@ -15,9 +15,9 @@ def validPassengerInput(passengerInput):
         return False
 
 
-def getDate(speaker):
+def getDate(speaker, qu):
     # Taking the voice input for the date
-    depDate = speaker.take_command()
+    depDate = speaker.take_command(qu)
 
     # Translating the input to english for the date parser
     depDate = GoogleTranslator(source='auto', target='en').translate(depDate)
@@ -28,29 +28,29 @@ def getDate(speaker):
     return depDate
 
 
-def getsSeveralDetails(speaker):
+def getsSeveralDetails(speaker, qu):
     
     # Departure place input to get details
     if speaker.lang == 'en':
-        speaker.talk("insert departure place please!")
+        speaker.talk(qu, "insert departure place please!")
     elif speaker.lang == 'fr':
-        speaker.talk("insérez le lieu de départ s'il vous plait!")
+        speaker.talk(qu, "insérez le lieu de départ s'il vous plait!")
 
     depPlace = ""
     
     validPlace = False
 
     while not validPlace:
-        depPlace = speaker.take_command()
+        depPlace = speaker.take_command(qu)
         validPlace = getDetails(depPlace)
 
         if validPlace:
             pass
         else:
             if speaker.lang == 'en':
-                speaker.talk("Please provide a valid departure place!")
+                speaker.talk(qu, "Please provide a valid departure place!")
             elif speaker.lang == 'fr':
-                speaker.talk("Veuillez indiquer un lieu de départ valide!")
+                speaker.talk(qu, "Veuillez indiquer un lieu de départ valide!")
 
     f = open("placeDetails.json", "r")
     pDet = json.load(f)
@@ -75,15 +75,15 @@ def getsSeveralDetails(speaker):
 
     # Destination place input to get details
     if speaker.lang == 'en':
-        speaker.talk("insert destination place please!")
+        speaker.talk(qu, "insert destination place please!")
     elif speaker.lang == 'fr':
-        speaker.talk("insérer le lieu de destination s'il vous plait!")
+        speaker.talk(qu, "insérer le lieu de destination s'il vous plait!")
 
     destPlace = ""
     validPlace = False
         
     while not validPlace:
-        destPlace = speaker.take_command()
+        destPlace = speaker.take_command(qu)
 
         validPlace = getDetails(destPlace)
         
@@ -91,9 +91,9 @@ def getsSeveralDetails(speaker):
             pass
         else:
             if speaker.lang == 'en':
-                speaker.talk("Please provide a valid destination place!")
+                speaker.talk(qu, "Please provide a valid destination place!")
             elif speaker.lang == 'fr':
-                speaker.talk("Veuillez fournir un lieu de destination valide!")
+                speaker.talk(qu, "Veuillez fournir un lieu de destination valide!")
 
     f = open("placeDetails.json", "r")
     pDet = json.load(f)
@@ -120,11 +120,11 @@ def getsSeveralDetails(speaker):
 
     # Filling the departure date
     if speaker.lang == 'en':
-        speaker.talk("insert date of departure please!")
+        speaker.talk(qu, "insert date of departure please!")
     elif speaker.lang == 'fr':
-        speaker.talk("insérez la date de départ s'il vous plait!")
+        speaker.talk(qu, "insérez la date de départ s'il vous plait!")
 
-    depDate = getDate(speaker)
+    depDate = getDate(speaker, qu)
 
     validDate = False
 
@@ -135,24 +135,24 @@ def getsSeveralDetails(speaker):
             validDate = True
         except:
             if speaker.lang == 'en':
-                speaker.talk("Insert a valid date please!")
+                speaker.talk(qu, "Insert a valid date please!")
             elif speaker.lang == 'fr':
-                speaker.talk("Insérez une date valide s'il vous plait!")
-            valid = False
-            depDate = getDate()
+                speaker.talk(qu, "Insérez une date valide s'il vous plait!")
+            validDate = False
+            depDate = getDate(speaker, qu)
 
     # input the passengers
     if speaker.lang == 'en':
-        speaker.talk("insert number of passengers please!")
+        speaker.talk(qu, "insert number of passengers please!")
     elif speaker.lang == 'fr':
-        speaker.talk("insérez le nombre de passagers s'il vous plait!")
-    passengers = speaker.take_command()
+        speaker.talk(qu, "insérez le nombre de passagers s'il vous plait!")
+    passengers = speaker.take_command(qu)
 
     while not validPassengerInput(passengers):
         if speaker.lang == 'en':
-            speaker.talk("insert a valid number of passengers please!")
+            speaker.talk(qu, "insert a valid number of passengers please!")
         elif speaker.lang == 'fr':
-            speaker.talk("insérez un nombre valide de passagers s'il vous plait!")
-        passengers = speaker.take_command()
+            speaker.talk(qu, "insérez un nombre valide de passagers s'il vous plait!")
+        passengers = speaker.take_command(qu)
 
     return depDetails, arrDetails, date, time, passengers

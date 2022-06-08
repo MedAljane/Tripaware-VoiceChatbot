@@ -4,7 +4,7 @@ from voiceSetup import Speaker
 import requests
 import json
 
-def getCarpooling(depDet, arrDet, date, time, passengers, speaker):
+def getCarpooling(depDet, arrDet, date, time, passengers, speaker, qu):
     url = "https://api.ozeroute.com/v1/transportation/carpooling"
 
     payload = json.dumps({
@@ -51,7 +51,7 @@ def getCarpooling(depDet, arrDet, date, time, passengers, speaker):
     if response == {} or response == []:
         return False
     elif response == "Error response, please try again":
-        speaker.talk("Invalid response! API error...")
+        speaker.talk(qu, "Invalid response! API error...")
         return False
     elif response != {} or response != []:
         response = classifyByCarrier(response)

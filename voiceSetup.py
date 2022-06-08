@@ -1,5 +1,5 @@
-from queue import Queue
 import speech_recognition as sr                 # For voice recognition
+from queue import Queue
 import pyttsx3                                  # For text to speech conversion
 
 class Speaker:
@@ -14,7 +14,7 @@ class Speaker:
             self.engine.setProperty('voice', self.engine.getProperty('voices')[2].id)
         elif language == "en":
             self.engine.setProperty('voice', self.engine.getProperty('voices')[0].id)
-        self.engine.setProperty('rate', 222)
+        self.engine.setProperty('rate', 200)
         self.engine.setProperty('volume', 1)
         self.lang = language
     
@@ -48,7 +48,7 @@ class Speaker:
                 try:
                     self.talk(q, "En train de reconnaître...") 
                     command = self.listener.recognize_google(audio, language ='fr')
-                    q.put(("Vous :" ,command))
+                    q.put(("Vous: " ,command))
                     recognized = True
             
                 except Exception as e:
