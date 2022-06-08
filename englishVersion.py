@@ -1,4 +1,4 @@
-from sentence_splitter import SentenceSplitter, split_text_into_sentences
+from sentence_splitter import SentenceSplitter
 from chatOptions import loc, tim, book, cor, mus, tripaware
 from Tripaware.tripaware import getTripAware
 from deep_translator import GoogleTranslator
@@ -30,7 +30,6 @@ def english(speaker, qu):
         
         #city ​​description
         speaker.talk(qu, "choose the city please")
-        #ville=input('City name: ')
         speaker.lang = "fr"
         ville=speaker.take_command(qu)
         l='https://fr.wikivoyage.org/wiki/'+ville
@@ -53,14 +52,9 @@ def english(speaker, qu):
                 ville_pres+=i
             speaker.talk(qu, ville_pres)
         except:
-            speaker.talk(qu, 'city name incorrect or not found...Please try again')
+            speaker.talk(qu, 'City name incorrect or not found...Please try again')
 
 
-    def reserv(speaker,qu):
-        speaker.talk(qu, qu, "OK, choose the city , please")
-        dest_ville=input("City name :")
-        speaker.talk(qu, qu, "ok")
-        webbrowser.open('https://www.booking.com/city/tn/'+dest_ville)
     def time(speaker,qu):
         time = datetime.datetime.now().strftime('%I:%M %p')
         speaker.talk(qu, 'Current time is ' + time)
@@ -68,11 +62,8 @@ def english(speaker, qu):
 
     while True:
         command = speaker.take_command(qu)
-        
-        if command.lower() in book:
-            reserv(speaker, qu)
 
-        elif command.lower() in tim:
+        if command.lower() in tim:
             time(speaker, qu)
         
         elif command.lower() in cor:
@@ -101,7 +92,7 @@ def english(speaker, qu):
             pywhatkit.playonyt(song) 
 
         elif command.lower() in loc:
-            speaker.talk(qu, 'choose the city please')
+            speaker.talk(qu, 'Choose the city please')
             l=input("City name : ")
             url = 'https://google.nl/maps/place/' + l + '/&amp;'
             webbrowser.open(url)
@@ -114,7 +105,7 @@ def english(speaker, qu):
 
         elif command.lower() in ["exit", "quitter", "quit", "cancel"]:
             speaker.talk(qu, "Thank you for using our service, see you soon!")
-            speaker.talk(qu, "exit")
+            speaker.talk(qu, "Exit")
             break
 
         speaker.talk(qu, 'Want something else?')

@@ -1,3 +1,5 @@
+from sentence_splitter import SentenceSplitter
+from voiceSetup import Speaker
 from queue import Queue
 import requests
 import json
@@ -12,12 +14,11 @@ def tempEN(speaker, qu):
 
     # Give city name 
     speaker.talk(qu, "choose the city please")
-    #City_départ = input("city Name : ") 
-    City_départ=take_command(qu)
+    City_dep = speaker.take_command(qu)
 
     # complete_url variable to store 
     # complete url address 
-    complete_url = base_url + "appid=" + api_key + "&q=" + City_départ +"&units=metric"
+    complete_url = base_url + "appid=" + api_key + "&q=" + City_dep +"&units=metric"
 
     # get method of requests module 
     # return response object 
@@ -58,7 +59,7 @@ def tempEN(speaker, qu):
         # to the "description" key at 
         # the 0th index of z 
         weather_description = z[0]["description"] 
-        speaker.talk(qu, "the weather in "+ City_départ +  "  :")
+        speaker.talk(qu, "the weather in "+ City_dep +  "  :")
         
         # print following values 
         speaker.talk(qu, " Temperature  = " +
@@ -75,7 +76,7 @@ def tempEN(speaker, qu):
         speaker.talk(qu, "City Not Found ... Please Try Again ") 
 
 
-def tempFR(qu):
+def tempFR(speaker, qu):
 
     # Enter your API key here 
     api_key = "b8e909c7c126a848d7d7ea55ceeeeaad"
@@ -86,12 +87,11 @@ def tempFR(qu):
     # Give city name 
     speaker.talk(qu, "choisissez la ville s'il vous plait")
 
-    City_départ = input("Non de la vile : ") 
-
+    City_dep=speaker.take_command(qu)
 
     # complete_url variable to store 
     # complete url address 
-    complete_url = base_url + "appid=" + api_key + "&q=" + City_départ +"&units=metric"
+    complete_url = base_url + "appid=" + api_key + "&q=" + City_dep +"&units=metric"
 
     # get method of requests module 
     # return response object 
@@ -131,22 +131,13 @@ def tempFR(qu):
         # store the value corresponding 
         # to the "description" key at 
         # the 0th index of z 
-        weather_description = z[0]["description"] 
-        print("la météo dans "+ City_départ + "  :")
-        speaker.talk(qu, "la météo dans "+ City_départ +  "  :")
+        weather_description = z[0]["description"]
+        speaker.talk(qu, "la météo dans "+ City_dep +  " :")
         
         splitter = SentenceSplitter(language='en')
         description = GoogleTranslator(target='fr').translate(str(weather_description))
+
         # print following values 
-        print(" Température  = " +
-                        str(current_temperature) +" °C "+
-            "\n Pression atmosphérique  = " +
-                        str(current_pressure) +" hPa "+
-            "\n Humidité  = " +
-                        str(current_humidiy) +" % "
-            "\n  =====>>  " +
-                        description) 
-        
         speaker.talk(qu, " Température  = " +
                         str(current_temperature) +" degré celsius "+
             "\n Pression atmosphérique  = " +
@@ -156,6 +147,5 @@ def tempFR(qu):
             "\n " +
                         description) 
 
-    else: 
-        print(" Ville introuvable ... Veuillez réessayer") 
+    else:
         speaker.talk(qu, " Ville introuvable ... Veuillez réessayer ") 

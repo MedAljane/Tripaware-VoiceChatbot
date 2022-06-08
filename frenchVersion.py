@@ -1,4 +1,3 @@
-from sentence_splitter import SentenceSplitter, split_text_into_sentences
 from chatOptions import loc, tim, book, cor, mus, tripaware
 from Tripaware.tripaware import getTripAware
 from deep_translator import GoogleTranslator
@@ -57,13 +56,13 @@ def french(speaker, qu):
         speaker.talk(qu, "comment puis-je vous aider !")
 
 
-    def reserv(qu):
+    def reserv(speaker, qu):
         speaker.talk(qu, "OK, choisissez la ville, s'il vous plaît ")
         dest_ville=speaker.take_command(qu)
         speaker.talk(qu, "OK")
         webbrowser.open('https://www.booking.com/city/tn/'+dest_ville)
 
-    def time(qu):
+    def time(speaker, qu):
         time = datetime.datetime.now().strftime('%I:%M %p')
         speaker.talk(qu, "L'heure actuelle est " + time)
         
@@ -73,13 +72,13 @@ def french(speaker, qu):
         
 
         if command in book :
-            reserv(qu)
+            reserv(speaker, qu)
     
         elif command in tim:
-            time()
+            time(speaker, qu)
 
         elif 'météo' in command :
-            tempFR()
+            tempFR(speaker, qu)
 
         elif command in mus: 
             speaker.talk(qu, "Choisissez la musique s'il vous plait")

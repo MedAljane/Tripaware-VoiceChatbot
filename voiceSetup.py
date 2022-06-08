@@ -5,15 +5,28 @@ import pyttsx3                                  # For text to speech conversion
 class Speaker:
     global lang
     global engine
+    global avLanguages
 
 
     def __init__(self, language):
         self.listener = sr.Recognizer()
         self.engine = pyttsx3.init()
+        self.avLanguages = {
+            'french': [],
+            'english': []
+        }
+
+        for voice in self.engine.getProperty('voices'):
+            if 'english' in voice.name.lower():
+                self.avLanguages["english"].append(voice)
+            elif 'french' in voice.name.lower():
+                self.avLanguages["french"].append(voice)
+
         if language == "fr":
-            self.engine.setProperty('voice', self.engine.getProperty('voices')[2].id)
+            self.engine.setProperty('voice', self.avLanguages['french'][0].id)
         elif language == "en":
-            self.engine.setProperty('voice', self.engine.getProperty('voices')[0].id)
+            self.engine.setProperty('voice', self.avLanguages['english'][0].id)
+            
         self.engine.setProperty('rate', 200)
         self.engine.setProperty('volume', 1)
         self.lang = language

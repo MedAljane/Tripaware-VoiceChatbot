@@ -120,9 +120,9 @@ def getsSeveralDetails(speaker, qu):
 
     # Filling the departure date
     if speaker.lang == 'en':
-        speaker.talk(qu, "insert date of departure please!")
+        speaker.talk(qu, "insert date and time of departure please!")
     elif speaker.lang == 'fr':
-        speaker.talk(qu, "insérez la date de départ s'il vous plait!")
+        speaker.talk(qu, "insérez la date et l'heure de départ s'il vous plait!")
 
     depDate = getDate(speaker, qu)
 
