@@ -26,17 +26,17 @@ class Speaker:
             self.engine.setProperty('voice', self.avLanguages['french'][0].id)
         elif language == "en":
             self.engine.setProperty('voice', self.avLanguages['english'][0].id)
-            
+
         self.engine.setProperty('rate', 200)
         self.engine.setProperty('volume', 1)
         self.lang = language
     
     def setLanguage(self, language):
         if language == "fr":
-            self.engine.setProperty('voice', self.engine.getProperty('voices')[2].id)
+            self.engine.setProperty('voice', self.avLanguages['french'][0].id)
             self.lang = language
         elif language == "en":
-            self.engine.setProperty('voice', self.engine.getProperty('voices')[0].id)
+            self.engine.setProperty('voice', self.avLanguages['english'][0].id)
             self.lang = language
 
 
