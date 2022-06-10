@@ -9,21 +9,23 @@ class ChatInterface(Frame):
         Frame.__init__(self, master)
         self.master = master
 
+        self.master.iconbitmap('appIcon.ico')
+
+
         # sets default bg for top level windows
-        self.tl_bg = "#EEEEEE"
         self.tl_bg2 = "#EEEEEE"
         self.tl_fg = "#000000"
         self.font = "Verdana 10"
 
         menu = Menu(self.master)
         self.master.config(menu=menu, bd=5)
-# Menu bar
+        # Menu bar
 
-    # File
+        # File
         file = Menu(menu, tearoff=0)
         menu.add_cascade(label="Exit",command=self.chatexit)
 
-    # Options
+        # Options
         options = Menu(menu, tearoff=0)
         menu.add_cascade(label="Options", menu=options)
 
@@ -42,20 +44,6 @@ class ChatInterface(Frame):
         help_option.add_command(label="About CHATTY", command=self.msg)
         help_option.add_command(label="Develpoers", command=self.about)
 
-        self.text_frame = Frame(self.master, bd=6)
-        self.text_frame.pack(expand=True, fill=BOTH)
-
-        # scrollbar for text box
-        self.text_box_scrollbar = Scrollbar(self.text_frame, bd=0)
-        self.text_box_scrollbar.pack(fill=Y, side=RIGHT)
-
-        # contains messages
-        self.text_box = Text(self.text_frame, yscrollcommand=self.text_box_scrollbar.set, state=DISABLED,
-                                bd=1, padx=6, pady=6, spacing3=8, wrap=WORD, bg=None, font="Verdana 10", relief=GROOVE,
-                                width=10, height=1)
-        self.text_box.pack(expand=True, fill=BOTH)
-        self.text_box_scrollbar.config(command=self.text_box.yview)
-
 
     def chatexit(self):
         exit()
@@ -69,8 +57,7 @@ class ChatInterface(Frame):
     # Default
     def color_theme_default(self):
         self.master.config(bg="#EEEEEE")
-        self.text_frame.config(bg="#EEEEEE")
-        self.text_box.config(bg="#FFFFFF", fg="#000000")
+        self.textarea.config(bg="#EEEEEE")
         
         self.tl_bg = "#FFFFFF"
         self.tl_bg2 = "#EEEEEE"
@@ -79,8 +66,7 @@ class ChatInterface(Frame):
     # Dark
     def color_theme_dark(self):
         self.master.config(bg="#2a2b2d")
-        self.text_frame.config(bg="#2a2b2d")
-        self.text_box.config(bg="#212121", fg="#FFFFFF")
+        self.textarea.config(bg="#2a2b2d")
         
         self.tl_bg = "#212121"
         self.tl_bg2 = "#2a2b2d"
@@ -89,8 +75,7 @@ class ChatInterface(Frame):
     # Grey
     def color_theme_grey(self):
         self.master.config(bg="#444444")
-        self.text_frame.config(bg="#444444")
-        self.text_box.config(bg="#4f4f4f", fg="#ffffff")
+        self.textarea.config(bg="#444444")
         
         self.tl_bg = "#4f4f4f"
         self.tl_bg2 = "#444444"
@@ -99,8 +84,7 @@ class ChatInterface(Frame):
     # Blue
     def color_theme_dark_blue(self):
         self.master.config(bg="#263b54")
-        self.text_frame.config(bg="#263b54")
-        self.text_box.config(bg="#1c2e44", fg="#FFFFFF")
+        self.textarea.config(bg="#263b54")
         
         self.tl_bg = "#1c2e44"
         self.tl_bg2 = "#263b54"
@@ -109,8 +93,7 @@ class ChatInterface(Frame):
     # Torque
     def color_theme_turquoise(self):
         self.master.config(bg="#003333")
-        self.text_frame.config(bg="#003333")
-        self.text_box.config(bg="#669999", fg="#FFFFFF")
+        self.textarea.config(bg="#003333")
         
         self.tl_bg = "#669999"
         self.tl_bg2 = "#003333"
@@ -119,8 +102,7 @@ class ChatInterface(Frame):
     # Hacker
     def color_theme_hacker(self):
         self.master.config(bg="#0F0F0F")
-        self.text_frame.config(bg="#0F0F0F")
-        self.text_box.config(bg="#0F0F0F", fg="#33FF33")
+        self.textarea.config(bg="#0F0F0F")
         
         self.tl_bg = "#0F0F0F"
         self.tl_bg2 = "#0F0F0F"
@@ -140,7 +122,15 @@ def runInterface(queue):
         e = queue.get()
         if e[1] == "exit":
             root.destroy()
-        textarea.insert(END,e[0]+e[1]+'\n')
+        
+        textarea.tag_config('bot', background="white", foreground="blue")
+        textarea.tag_config('user', background="white", foreground="red")
+        if e[0] == "Bot: ":
+            textarea.insert(END,e[0], 'bot')
+        else:
+            textarea.insert(END,e[0], 'user')
+            
+        textarea.insert(END,e[1]+'\n')
         textarea.see(END)
         root.after(50, checkQueue)
 
@@ -156,14 +146,14 @@ def runInterface(queue):
     centerFrame=Frame(root)
     centerFrame.pack()
 
-    scrollbar=Scrollbar(centerFrame)
-    scrollbar.pack(side=RIGHT)
+    scrollbar=Scrollbar(centerFrame, orient=VERTICAL)
+    scrollbar.pack(side=RIGHT, fill=Y)
 
     global textarea
-    textarea=Text(centerFrame,font=("Times", 15, "bold"),height=10,yscrollcommand=scrollbar.set
-                ,wrap='word')
+    textarea=Text(centerFrame, font=("Times", 14, "bold"), height=20, wrap='word', yscrollcommand=scrollbar.set)
     textarea.pack(side=LEFT)
     scrollbar.config(command=textarea.yview)
+    textarea.config(yscrollcommand=scrollbar.set)
 
     root.after(50, checkQueue)
 
