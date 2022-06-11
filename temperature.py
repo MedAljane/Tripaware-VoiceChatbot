@@ -1,4 +1,5 @@
 from sentence_splitter import SentenceSplitter
+from deep_translator import GoogleTranslator
 from voiceSetup import Speaker
 from queue import Queue
 import requests
