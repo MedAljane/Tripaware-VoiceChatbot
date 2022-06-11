@@ -19,7 +19,7 @@ def chatbot(qu):
             elif speaker.lang == "en":
                 speaker.talk(qu, "language not supported, choose again please!")
 
-    if x in ["english", "anglais"]:
+    if x.lower() in ["english", "anglais"]:
         speaker.setLanguage("en")
         
         speaker.talk(qu, "My name is Chatty, a chatbot created by Hassen Chebil and Mohamed Amine Aljane")

@@ -16,6 +16,10 @@ def getCorona(speaker, qu):
         x=speaker.take_command(qu)
 
         link_DataCountry = json.load(open("countriesCodes.json", "r"))
+
+        if speaker.lang =="fr":
+            x= GoogleTranslator(source='fr', target='en').translate(x)
+
         if x.lower() not in link_DataCountry.keys():
             raise Exception(x.lower())
 
@@ -25,7 +29,7 @@ def getCorona(speaker, qu):
         elif speaker.lang =="fr":
             speaker.talk(qu, "Obtenir des cas, veuillez patienter...")
 
-        soup = BeautifulSoup(requests.get(f"https://www.worldometers.info/coronavirus/news-block/news_main_updates.php?fd=lm_{today}&country={link_DataCountry[x.lower()]}&days_count=5").content, 'html.parser').findAll('button', {'class': 'btn btn-light date-btn'})
+        soup = BeautifulSoup(requests.get(f"https://www.worldometers.info/coronavirus/news-block/news_main_updates.php?fd=lm_{today}&country={link_DataCountry[x.lower()]}&days_count=3").content, 'html.parser').findAll('button', {'class': 'btn btn-light date-btn'})
         
         dates_En = []
         cases_En = []

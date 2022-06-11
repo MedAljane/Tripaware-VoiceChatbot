@@ -70,9 +70,10 @@ def english(speaker, qu):
             try:
                 dates, cases, deaths = getCorona(speaker, qu)
             except:
+                speaker.talk(qu, "Country not in our database!")
                 continue
 
-            speaker.talk(qu, "Here's the cases for the past 5 days:")
+            speaker.talk(qu, "Here's the cases for the past 3 days:")
             for date, case, death in zip(dates, cases, deaths):
                 speaker.talk(qu, date+": \n"+case+", "+death)
 
@@ -103,9 +104,9 @@ def english(speaker, qu):
         elif command in tripaware:
             getTripAware(speaker, qu)
 
-        elif command.lower() in ["exit", "quitter", "quit", "cancel"]:
+        elif command.lower() in ["exit", "quitter", "quit", "cancel", "no"]:
             speaker.talk(qu, "Thank you for using our service, see you soon!")
-            speaker.talk(qu, "Exit")
+            speaker.talk(qu, "exit")
             break
 
         speaker.talk(qu, 'Want something else?')

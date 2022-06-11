@@ -23,16 +23,11 @@ class ChatInterface(Frame):
 
         # File
         file = Menu(menu, tearoff=0)
-        menu.add_cascade(label="Exit",command=self.chatexit)
-
-        # Options
-        options = Menu(menu, tearoff=0)
-        menu.add_cascade(label="Options", menu=options)
-
+        menu.add_cascade(label="Exit",command=self.destroy())
    
         # color theme
-        color_theme = Menu(options, tearoff=0)
-        options.add_cascade(label="Color Theme", menu=color_theme)
+        color_theme = Menu(menu, tearoff=0)
+        menu.add_cascade(label="Color theme", menu=color_theme)
         color_theme.add_command(label="Default",command=self.color_theme_default) 
         color_theme.add_command(label="Grey",command=self.color_theme_grey) 
         color_theme.add_command(label="Blue",command=self.color_theme_dark_blue) 
@@ -120,7 +115,7 @@ def runInterface(queue):
 
     def checkQueue():
         e = queue.get()
-        if e[1] == "exit":
+        if e[1].lower() == "exit":
             root.destroy()
         
         textarea.tag_config('bot', background="white", foreground="blue")

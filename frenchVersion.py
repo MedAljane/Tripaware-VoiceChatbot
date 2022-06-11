@@ -90,14 +90,10 @@ def french(speaker, qu):
             try:
                 dates, cases, deaths = getCorona(speaker, qu)
             except:
-                if speaker.lang == "en":
-                    speaker.talk(qu, "Country not in our database!")
-                    return None
-                elif speaker.lang =="fr":
-                    speaker.talk(qu, "Pays n'est pas dans notre base de données !")
+                speaker.talk(qu, "Pays n'est pas dans notre base de données !")
                 continue
             
-            speaker.talk(qu, "Voici les cas des 5 derniers jours:")
+            speaker.talk(qu, "Voici les cas des 3 derniers jours:")
             for date, case, death in zip(dates, cases, deaths):
                 speaker.talk(qu, date+": \n"+case+", "+death)
 
@@ -116,7 +112,7 @@ def french(speaker, qu):
         elif command in tripaware:
             getTripAware(speaker, qu)
 
-        elif command.lower() in ["exit", "quitter", "quit", "cancel"]:
+        elif command.lower() in ["exit", "quitter", "quit", "cancel", "non"]:
             speaker.talk(qu, "Merci d'utiliser notre service, à bientôt!")
             speaker.talk(qu, "exit")
             exit()

@@ -14,7 +14,10 @@ def tempEN(speaker, qu):
     base_url = "http://api.openweathermap.org/data/2.5/weather?"
 
     # Give city name 
-    speaker.talk(qu, "choose the city please")
+    
+    speaker.talk(qu, "Choose the country please")
+    Country = speaker.take_command(qu)
+    speaker.talk(qu, "Choose the city please")
     City_dep = speaker.take_command(qu)
 
     # complete_url variable to store 
@@ -63,12 +66,12 @@ def tempEN(speaker, qu):
         speaker.talk(qu, "the weather in "+ City_dep +  "  :")
         
         # print following values 
-        speaker.talk(qu, " Temperature  = " +
-                str(current_temperature) +" celsius "+
-                "\n Atmospheric pressure  = " +
+        speaker.talk(qu, " Temperature: " +
+                str(current_temperature) +" celsius"+
+                "\n Atmospheric pressure: " +
                 str(current_pressure) +" hPa "+
-                "\n Humidity = " +
-                str(current_humidiy) +" % "
+                "\n Humidity: " +
+                str(current_humidiy) +"% "
                 "\n " +
                 str(weather_description)
             ) 
@@ -86,8 +89,10 @@ def tempFR(speaker, qu):
     base_url = "http://api.openweathermap.org/data/2.5/weather?"
 
     # Give city name 
-    speaker.talk(qu, "choisissez la ville s'il vous plait")
-
+    
+    speaker.talk(qu, "Choisissez le pays s'il vous plait!")
+    Country=speaker.take_command(qu)
+    speaker.talk(qu, "Choisissez la ville s'il vous plait!")
     City_dep=speaker.take_command(qu)
 
     # complete_url variable to store 
@@ -139,11 +144,11 @@ def tempFR(speaker, qu):
         description = GoogleTranslator(target='fr').translate(str(weather_description))
 
         # print following values 
-        speaker.talk(qu, " Température  = " +
+        speaker.talk(qu, "Température: " +
                         str(current_temperature) +" degré celsius "+
-            "\n Pression atmosphérique  = " +
+            "\n Pression atmosphérique: " +
                         str(current_pressure) +" hPa "+
-            "\n Humidité  = " +
+            "\n Humidité: " +
                         str(current_humidiy) +" % "
             "\n " +
                         description) 
