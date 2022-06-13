@@ -1,5 +1,5 @@
 from sentence_splitter import SentenceSplitter
-from chatOptions import loc, tim, book, cor, mus, tripaware
+from chatOptions import loc, tim, desc, cor, mus, tripaware
 from Tripaware.tripaware import getTripAware
 from deep_translator import GoogleTranslator
 from temperature import tempEN, tempFR
@@ -18,9 +18,19 @@ import datetime
 import pyttsx3
 import pyjokes
 import ipinfo
+from time import sleep
 import json 
 import os
 import re
+
+def hello_en(speaker, qu):
+    hour = int(datetime.datetime.now().hour)
+    if hour>= 0 and hour<12:
+        speaker.talk(qu, "Good morning!")
+    elif hour>= 12 and hour<18:
+        speaker.talk(qu, "Good afternoon!") 
+    else:
+        speaker.talk(qu, "Good evening!")
 
 
 def english(speaker, qu):
@@ -30,17 +40,16 @@ def english(speaker, qu):
         
         #city ​​description
         speaker.talk(qu, "choose the city please")
-        speaker.lang = "fr"
         ville=speaker.take_command(qu)
-        l='https://fr.wikivoyage.org/wiki/'+ville
-        speaker.lang = "en"
-        p=requests.get(l)
-        soup=BeautifulSoup(p.content , 'html.parser')
-        pres=[]
-        for i in soup.findAll('div',{'class':'mw-parser-output'}):
-            for j in i.findAll('p'):
-                pres.append(j.text)
+
         try:
+            l='https://fr.wikivoyage.org/wiki/'+ville
+            p=requests.get(l)
+            soup=BeautifulSoup(p.content , 'html.parser')
+            pres=[]
+            for i in soup.findAll('div',{'class':'mw-parser-output'}):
+                for j in i.findAll('p'):
+                    pres.append(j.text)
             pres_ville=pres[2]+pres[3]
             pres_ville = re.sub(r'\[[0-9]*\]', ' ', pres_ville)
             pres_ville = re.sub(r'\s+', ' ', pres_ville)
@@ -60,12 +69,16 @@ def english(speaker, qu):
         speaker.talk(qu, 'Current time is ' + time)
         
 
+    
     while True:
         command = speaker.take_command(qu)
 
         if command.lower() in tim:
             time(speaker, qu)
         
+        elif command.lower() in desc:
+            city(speaker, qu)
+
         elif command.lower() in cor:
             try:
                 dates, cases, deaths = getCorona(speaker, qu)
@@ -77,27 +90,21 @@ def english(speaker, qu):
             for date, case, death in zip(dates, cases, deaths):
                 speaker.talk(qu, date+": \n"+case+", "+death)
 
-        elif "what is" in command.lower():
-            thing = command.replace("what is", '')
-            wikipedia.set_lang("fr")
-            info_th = wikipedia.summary(thing, 2)
-            speaker.talk(qu, info_th)
-
-        elif 'thank' in command.lower():
-            speaker.talk(qu, 'Bla mziya, you are welcome')
-        
         elif command.lower() in mus:
             speaker.talk(qu, 'Choose the music please')
             song = speaker.take_command(qu)
-            speaker.talk(qu, 'playing ' + song)
-            pywhatkit.playonyt(song) 
+            speaker.talk(qu, 'Playing ' + song + ', check your browser!')
+            pywhatkit.playonyt(song)
+            sleep(2)
 
         elif command.lower() in loc:
-            speaker.talk(qu, 'Choose the city please')
-            l=input("City name : ")
+            speaker.talk(qu, 'Choose the city please!')
+            l=speaker.take_command(qu)
             url = 'https://google.nl/maps/place/' + l + '/&amp;'
             webbrowser.open(url)
-        
+            speaker.talk(qu, "Opened location of "+l+" in google maps, check your browser.")
+            sleep(2)
+
         elif  'weather' in command.lower():
             tempEN(speaker, qu)
 

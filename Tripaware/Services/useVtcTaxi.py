@@ -47,8 +47,11 @@ def getVtcTaxi(depDet, arrDet, date, time, passengers, speaker, qu):
     }
 
     response = requests.request("POST", url, headers=headers, data=payload).json()
-
+    print(response) ############
     if response == {} or response == []:
+        return False
+    elif response["errors"]:
+        speaker.talk(qu, "API malfunction, try again later please!")
         return False
     elif response == "Error response, please try again":
         speaker.talk(qu, "Invalid response! API error...")

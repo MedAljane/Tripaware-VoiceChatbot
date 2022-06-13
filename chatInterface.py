@@ -37,17 +37,17 @@ class ChatInterface(Frame):
         help_option = Menu(menu, tearoff=0)
         menu.add_cascade(label="Help", menu=help_option)
         help_option.add_command(label="About CHATTY", command=self.msg)
-        help_option.add_command(label="Develpoers", command=self.about)
+        help_option.add_command(label="Developers", command=self.about)
 
 
     def chatexit(self):
         exit()
 
     def msg(self):
-        tkinter.messagebox.showinfo("CHATTY v1.0",'CHATTY  is a chatbot for answering python queries\nIt is based on retrival-based NLP using pythons NLTK tool-kit module\nGUI is based on Tkinter\nIt can answer questions regarding python language for new learners')
+        tkinter.messagebox.showinfo("CHATTY",'CHATTY is a chatbot for answering user queries.\nIt is based on user commands understanding to get the desired task.\nIt can deliver multiple services throught the main menu shown in the UI or heard by voice.\nBut its main feature is the tripaware service that allows users to find the best mean of transport suited for his demand.\nYou can choose your favorite transport using multiple criterias.\nJust say Tripaware or find trajectory while in main menu to discover this feature.')
 
     def about(self):
-        tkinter.messagebox.showinfo("CHATTY Developers","Hassen Chebil\nMohamed Amine Aljan")
+        tkinter.messagebox.showinfo("CHATTY Developers","Hassen Chebil; chebilhassen7@gmail.com\nMohamed Amine Aljane; Aljane.medamine.97@gmail.com")
     
     # Default
     def color_theme_default(self):

@@ -50,6 +50,9 @@ def getCarpooling(depDet, arrDet, date, time, passengers, speaker, qu):
 
     if response == {} or response == []:
         return False
+    elif response["errors"]:
+        speaker.talk(qu, "API malfunction, try again later please!")
+        return False
     elif response == "Error response, please try again":
         speaker.talk(qu, "Invalid response! API error...")
         return False

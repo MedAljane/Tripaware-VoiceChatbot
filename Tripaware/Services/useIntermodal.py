@@ -51,6 +51,9 @@ def getIntermodal(depDet, arrDet, date, time, passengers, speaker, qu):
     if response in [{}, []]:
         speaker.talk(qu, "List or Dict empty!")
         return False
+    elif response["errors"]:
+        speaker.talk(qu, "API malfunction, try again later please!")
+        return False
     elif response == "Error response, please try again":
         speaker.talk(qu, "Invalid response! API error...")
         return False

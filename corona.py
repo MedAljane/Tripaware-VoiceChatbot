@@ -9,9 +9,9 @@ def getCorona(speaker, qu):
     today = datetime.date.today().strftime('%Y-%m-%d')
     try:
         if speaker.lang == "en":
-            speaker.talk(qu, "choose the city please")
+            speaker.talk(qu, "choose the country please")
         elif speaker.lang =="fr":
-            speaker.talk(qu, "Choisissez la ville s'il vous plait:")
+            speaker.talk(qu, "Choisissez le pays s'il vous plait:")
 
         x=speaker.take_command(qu)
 

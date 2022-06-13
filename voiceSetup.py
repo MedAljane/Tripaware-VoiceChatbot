@@ -81,7 +81,7 @@ class Speaker:
                 try:
                     self.talk(q, "Recognizing...") 
                     command = self.listener.recognize_google(audio, language ='en')
-                    q.put(("you: ", command))
+                    q.put(("You: ", command))
                     recognized = True
             
                 except Exception as e:

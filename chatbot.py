@@ -1,7 +1,7 @@
 from queue import Queue
 from voiceSetup import Speaker
-from frenchVersion import french
-from englishVersion import english
+from frenchVersion import french, hello_fr
+from englishVersion import english, hello_en
 
 def chatbot(qu):
 
@@ -21,7 +21,8 @@ def chatbot(qu):
 
     if x.lower() in ["english", "anglais"]:
         speaker.setLanguage("en")
-        
+        hello_en(speaker, qu)
+
         speaker.talk(qu, "My name is Chatty, a chatbot created by Hassen Chebil and Mohamed Amine Aljane")
         speaker.talk(qu, "I can tell you about:")
         speaker.talk(qu, "Time, Weather, Corona, City Description, City Location, Music Listening, finding best trajectory (Tripaware)")
@@ -30,6 +31,8 @@ def chatbot(qu):
 
     elif x.lower() in ["french", "francais", "français"]:
         speaker.setLanguage("fr")
+        hello_fr(speaker, qu)
+        
         speaker.talk(qu, "Je m'appelle Chatty, un chatbot créé par Hassen Chebil et Mohamed Amine Aljane.")       
         speaker.talk(qu, "Je peux vous parler de:")
         speaker.talk(qu, "Heure, Météo, Corona, Description d'un lieu, Localisation d'un lieu, Ecouter une musique, trouver la meilleure trajectoire (Tripaware)")
