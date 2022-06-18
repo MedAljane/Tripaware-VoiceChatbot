@@ -47,19 +47,19 @@ def getVtcTaxi(depDet, arrDet, date, time, passengers, speaker, qu):
     }
 
     response = requests.request("POST", url, headers=headers, data=payload).json()
-    print(response) ############
-    if response == {} or response == []:
-        return False
-    elif response["errors"]:
+    
+    if isinstance(response, dict) and "errors" in response.keys():
         speaker.talk(qu, "API malfunction, try again later please!")
         return False
-    elif response == "Error response, please try again":
+    elif isinstance(response, str) and response == "Error response, please try again":
         speaker.talk(qu, "Invalid response! API error...")
         return False
-    elif response != {} or response != []:
+    elif (isinstance(response, dict) and response != {}) or (isinstance(response, list) and response != []):
         response = classifyByCarrier(response)
         if response == False:
             return False
+    elif response in [{}, []]:
+        return False
     else:
         return False
 

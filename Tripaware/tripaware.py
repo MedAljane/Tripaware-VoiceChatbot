@@ -15,7 +15,7 @@ def checkProceeding(qu, speaker):
             speaker.talk(qu, "Make a criteria choice please!")
             criteria = speaker.take_command(qu)
 
-            if criteria.lower() in ["total co2", "co2"]:
+            if criteria.lower() in ["total co2", "co2", "total co2 consumption", "co2 consumption"]:
                 return False, "TotalCo2"
             elif criteria.lower() in ["prix totale", "total price", "price", "prix"]:
                 return False, "TotalPrice"
@@ -69,6 +69,7 @@ def getTripAware(speaker, qu, criteria=""):
         
     transport = speaker.take_command(qu)
 
+    
     if transport.lower() in vtc:
         from Tripaware.Services.useVtcTaxi import getVtcTaxi
         if speaker.lang == 'en':

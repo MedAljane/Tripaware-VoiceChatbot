@@ -117,6 +117,7 @@ def runInterface(queue):
         e = queue.get()
         if e[1].lower() == "exit":
             root.destroy()
+            exit()
         
         textarea.tag_config('bot', background="white", foreground="blue")
         textarea.tag_config('user', background="white", foreground="red")

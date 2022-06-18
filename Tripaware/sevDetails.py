@@ -25,6 +25,9 @@ def getDate(speaker, qu):
     # Using the date parser to get the formatted date and time
     depDate = parse(depDate, fuzzy=True)
 
+    if depDate <= datetime.now():
+        return False
+
     return depDate
 
 
@@ -36,7 +39,7 @@ def getsSeveralDetails(speaker, qu):
     elif speaker.lang == 'fr':
         speaker.talk(qu, "insérez le lieu de départ s'il vous plait!")
 
-    depPlace = ""
+    depPlace = "" 
     
     validPlace = False
 
@@ -72,6 +75,7 @@ def getsSeveralDetails(speaker, qu):
         }
     f.close()
     os.remove("placeDetails.json")
+
 
     # Destination place input to get details
     if speaker.lang == 'en':
@@ -118,6 +122,7 @@ def getsSeveralDetails(speaker, qu):
     f.close()
     os.remove("placeDetails.json")
 
+
     # Filling the departure date
     if speaker.lang == 'en':
         speaker.talk(qu, "insert date and time of departure please!")
@@ -147,7 +152,7 @@ def getsSeveralDetails(speaker, qu):
     elif speaker.lang == 'fr':
         speaker.talk(qu, "insérez le nombre de passagers s'il vous plait!")
     passengers = speaker.take_command(qu)
-
+    
     while not validPassengerInput(passengers):
         if speaker.lang == 'en':
             speaker.talk(qu, "insert a valid number of passengers please!")
