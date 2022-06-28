@@ -31,8 +31,8 @@ def getIntermodal(depDet, arrDet, date, time, passengers, speaker, qu):
         'Accept-Language': 'fr-FR,fr;q=0.9,en-US;q=0.8,en;q=0.7',
         'Connection': 'keep-alive',
         'Content-Type': 'application/json;charset=UTF-8',
-        'Origin': 'https://www.ozeroute.com',
-        'Referer': 'https://www.ozeroute.com/',
+        'Origin': 'https://https://airportmobility.rem4u.com',
+        'Referer': 'https://https://airportmobility.rem4u.com/',
         'Sec-Fetch-Dest': 'empty',
         'Sec-Fetch-Mode': 'cors',
         'Sec-Fetch-Site': 'cross-site',
@@ -44,13 +44,9 @@ def getIntermodal(depDet, arrDet, date, time, passengers, speaker, qu):
         'sec-ch-ua-platform': '"Windows"',
         'timestamp': '1655372967055'
       }
-    print(payload)
-    response = requests.request("POST", url, headers=headers, data=payload)
-    print(response)
-    print(response.text)
 
-    response = json.loads(response.text)
-    print(response)
+    response = requests.request("POST", url, headers=headers, data=payload).json()
+
     if isinstance(response, dict) and "errors" in response.keys():
         speaker.talk(qu, "API malfunction, try again later please!")
         return False

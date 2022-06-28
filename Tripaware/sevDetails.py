@@ -7,11 +7,11 @@ from Tripaware.placeDetails import getDetails  # For place details
 from datetime import datetime
 from voiceSetup import Speaker
 
-def validPassengerInput(passengerInput):
+def validPassengers(passengerInput):
     
-    if len(passengerInput) == 1 and passengerInput.isnumeric():
+    if passengerInput.isnumeric():
         return True
-    else :
+    else:
         return False
 
 
@@ -20,15 +20,18 @@ def getDate(speaker, qu):
     depDate = speaker.take_command(qu)
 
     # Translating the input to english for the date parser
-    depDate = GoogleTranslator(source='auto', target='en').translate(depDate)
+    if speaker.lang == "fr":
+        depDate = GoogleTranslator(source='auto', target='en').translate(depDate)
 
     # Using the date parser to get the formatted date and time
     depDate = parse(depDate, fuzzy=True)
 
     if depDate <= datetime.now():
-        return False
+        return False, null, null
 
-    return depDate
+    date = depDate.strftime("%Y-%m-%d")
+    time = depDate.strftime("%H:%M")
+    return True, date, time
 
 
 def getsSeveralDetails(speaker, qu):
@@ -129,22 +132,18 @@ def getsSeveralDetails(speaker, qu):
     elif speaker.lang == 'fr':
         speaker.talk(qu, "insérez la date et l'heure de départ s'il vous plait!")
 
-    depDate = getDate(speaker, qu)
-
     validDate = False
 
     while not validDate:
         try:
-            date = depDate.strftime("%Y-%m-%d")
-            time = depDate.strftime("%H:%M")
-            validDate = True
+            validDate, date, time = getDate(speaker, qu)
+            if validDate == False:
+                raise Exception
         except:
             if speaker.lang == 'en':
                 speaker.talk(qu, "Insert a valid date please!")
             elif speaker.lang == 'fr':
                 speaker.talk(qu, "Insérez une date valide s'il vous plait!")
-            validDate = False
-            depDate = getDate(speaker, qu)
 
     # input the passengers
     if speaker.lang == 'en':
@@ -153,7 +152,7 @@ def getsSeveralDetails(speaker, qu):
         speaker.talk(qu, "insérez le nombre de passagers s'il vous plait!")
     passengers = speaker.take_command(qu)
     
-    while not validPassengerInput(passengers):
+    while not validPassengers(passengers):
         if speaker.lang == 'en':
             speaker.talk(qu, "insert a valid number of passengers please!")
         elif speaker.lang == 'fr':

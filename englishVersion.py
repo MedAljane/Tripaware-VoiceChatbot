@@ -1,26 +1,17 @@
+from chatOptions import loc, tim, desc, cor, mus, tripaware, langChange
 from sentence_splitter import SentenceSplitter
-from chatOptions import loc, tim, desc, cor, mus, tripaware
 from Tripaware.tripaware import getTripAware
 from deep_translator import GoogleTranslator
-from temperature import tempEN, tempFR
-import speech_recognition as sr
+from temperature import tempEN
 from voiceSetup import Speaker
 from bs4 import BeautifulSoup
 from corona import getCorona
-from threading import Thread
 from queue import Queue
-import pandas as pd
+from time import sleep
 import webbrowser
-import wikipedia
 import pywhatkit
 import requests
 import datetime
-import pyttsx3
-import pyjokes
-import ipinfo
-from time import sleep
-import json 
-import os
 import re
 
 def hello_en(speaker, qu):
@@ -70,6 +61,13 @@ def english(speaker, qu):
         
 
     
+    speaker.setLanguage("en")
+    hello_en(speaker, qu)
+
+    speaker.talk(qu, "My name is Chatty, a chatbot created by Hassen Chebil and Mohamed Amine Aljane")
+    speaker.talk(qu, "I can tell you about:")
+    speaker.talk(qu, "Time, Weather, Corona, City Description, City Location, Music Listening, finding best trajectory (Tripaware)")
+    speaker.talk(qu, "what do you want?")
     while True:
         command = speaker.take_command(qu)
 
@@ -115,5 +113,9 @@ def english(speaker, qu):
             speaker.talk(qu, "Thank you for using our service, see you soon!")
             speaker.talk(qu, "exit")
             break
+            
+        elif command.lower() in langChange:
+            from frenchVersion import french
+            french(speaker, qu)
 
         speaker.talk(qu, 'Want something else?')

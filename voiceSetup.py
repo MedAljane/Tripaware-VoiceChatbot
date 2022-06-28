@@ -27,7 +27,7 @@ class Speaker:
         elif language == "en":
             self.engine.setProperty('voice', self.avLanguages['english'][0].id)
 
-        self.engine.setProperty('rate', 200)
+        self.engine.setProperty('rate', 250)
         self.engine.setProperty('volume', 1)
         self.lang = language
     
